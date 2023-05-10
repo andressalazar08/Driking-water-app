@@ -6,35 +6,28 @@ package com.mycompany.apprecordatorio;
 
 /**
  *
- * @author camilo_p
+ * @author camilo_p & andres_s
  */
 public class Persona {
     private String Nombre;
+    private Id Id;
     private String Sexo;
     private int Edad;
     private int Estatura;
     private int Peso;
     private double cantidad;
 
+
     public Persona(String Sexo, int Edad, int Estatura, int Peso) {
+        this.id=id++; //cada vez que se cree un usuario se le asignará un Id incremental
         this.Sexo = Sexo;
         this.Edad = Edad;
         this.Estatura = Estatura;
         this.Peso = Peso;
+        this.historia = new ArrayList<Integer>(); //se define un array list para guardar el histórico
     }
-    
-    public double cantidadAgua(String Sexo, int Estatura, int Peso) {
-       if ("H".equals(Sexo))
-       {
-            cantidad = (Peso * 0.035) + (Estatura * 0.029) - 2.4587;
-       } 
-       else 
-       {
-            cantidad = (Peso * 0.031) + (Estatura * 0.025) - 2.4646;
-       }      
-       return cantidad;
-    }
-    
+
+
     public String getNombre() {
         return Nombre;
     }
@@ -74,5 +67,35 @@ public class Persona {
     public void setPeso(int Peso) {
         this.Peso = Peso;
     }
-    
+
+    //Método para calcular la cantidad de agua recomendada a tomar para el usuario
+
+    public double calcularCantidadAgua(String Sexo, int Estatura, int Peso) {
+       if ("H".equals(Sexo))
+       {
+            //TODO: Valores de referencia, revisar unidad de medida
+            cantidad = (Peso * 0.035) + (Estatura * 0.029) - 2.4587;
+       }
+       else
+       {
+            cantidad = (Peso * 0.031) + (Estatura * 0.025) - 2.4646;
+       }
+       return cantidad;
+    }
+
+    //Método para consultar la historia del usuario
+    //Por ahora la historia se guardará en un array
+    //Devuelve una lista de números que representan la cantidad de agua consumida por día
+    public List<Integer> consultarHistoria(){
+
+        return this.historia; // Devuelve el estado actual del array de historia
+    }
+
+    //Método para actualizar la cantidad tomada en el array de historia del usuario
+    public void actualizarHistoria(int cantidadTomada){
+
+        this.historia.add(cantidadTomada); // Al ejecutarse el método agrega el nuevo dato en el arrayList
+    }
+
+
 }
